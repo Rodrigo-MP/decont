@@ -4,14 +4,15 @@ pwd
 export WD=$(pwd)
 echo $WD
 cd $WD
+mkdir ./data/filenames
 URLS="/home/rodrigo/github/decont/data/urls"
 for url in $(cat $URLS)
     do
-      bash scripts/download.sh $url data
+      bash scripts/download.sh $url data yes
     done
 
 # Download the contaminants fasta file, and uncompress it
-bash scripts/download.sh <contaminants_url> res yes #TODO
+bash scripts/download.sh https://bioinformatics.cnio.es/data/courses/decont/contaminants.fasta.gz res yes #DONE
 
 # Index the contaminants file
 bash scripts/index.sh res/contaminants.fasta res/contaminants_idx

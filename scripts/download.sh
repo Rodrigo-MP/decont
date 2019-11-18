@@ -2,6 +2,8 @@
 # and *optionally* uncompress the downloaded file with gunzip if the third argument contains the word "yes".
 wget -P $2 $1
 if ["$3" == "yes"]
-  then
+  do
     cd $WD
-    gunzip -k ./data/*.fastq.gz
+    gunzip -C -k ./data/*.gz > ./data/filenames
+    gunzip -k ./res/*.gz
+  done
