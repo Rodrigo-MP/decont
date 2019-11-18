@@ -1,8 +1,14 @@
 #Download all the files specified in data/filenames
-for url in $(<list_of_urls>) #TODO
-do
-    bash scripts/download.sh $url data
-done
+cd /home/rodrigo/github/decont
+pwd
+export WD=$(pwd)
+echo $WD
+cd $WD
+URLS="/home/rodrigo/github/decont/data/urls"
+for url in $(cat $URLS)
+    do
+      bash scripts/download.sh $url data
+    done
 
 # Download the contaminants fasta file, and uncompress it
 bash scripts/download.sh <contaminants_url> res yes #TODO
@@ -26,7 +32,7 @@ do
     sid=#TODO
     # mkdir -p out/star/$sid
     # STAR --runThreadN 4 --genomeDir res/contaminants_idx --outReadsUnmapped Fastx --readFilesIn <input_file> --readFilesCommand zcat --outFileNamePrefix <output_directory>
-done 
+done
 
 # TODO: create a log file containing information from cutadapt and star logs
 # (this should be a single log file, and information should be *appended* to it on each run)
