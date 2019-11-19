@@ -4,6 +4,7 @@ wget -P $2 $1
 if ["$3" == "yes"]
   do
     cd $WD
-    gunzip -C -k ./data/*.gz > ./data/filenames
+    cp ./data/*.gz $4
+    gunzip -C -k ./data/*.gz > basename ./data/*.gz .gz
     gunzip -k ./res/*.gz
   done

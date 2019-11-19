@@ -8,7 +8,7 @@ mkdir ./data/filenames
 URLS="/home/rodrigo/github/decont/data/urls"
 for url in $(cat $URLS)
     do
-      bash scripts/download.sh $url data yes
+      bash scripts/download.sh $url data yes ./data/filenames
     done
 
 # Download the contaminants fasta file, and uncompress it
