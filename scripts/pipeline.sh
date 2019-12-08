@@ -1,10 +1,11 @@
 #Download all the files specified in data/urls
-cd /home/rodrigo/github/decont
+
+cd ~/github/decont
 pwd
 export WD=$(pwd)
 echo $WD
 cd $WD
-URLS="/home/rodrigo/github/decont/data/urls"
+URLS="~/github/decont/data/urls"
 for url in $(cat $URLS)
     do
       bash scripts/download.sh $url data
@@ -20,7 +21,7 @@ mkdir res/contaminants_idx
 bash scripts/index.sh res/contaminants.fasta res/contaminants_idx/
 
 # Merge the samples into a single file
-IDS="/home/rodrigo/github/decont/data"
+IDS="~/github/decont/data"
 for sid1 in C57BL_6NJ
 do
     bash scripts/merge_fastqs.sh data out/merged $sid1
@@ -30,14 +31,14 @@ do
     bash scripts/merge_fastqs.sh data out/merged $sid2
 done
 
-# TODO: run cutadapt for all merged files
+# run cutadapt for all merged files
 echo "Running cutadapt..."
 mkdir -p log/cutadapt
 mkdir -p out/trimmed
 cutadapt -m 18 -a TGGAATTCTCGGGTGCCAAGG --discard-untrimmed -o out/trimmed/${sid1}.trimmed.fastq.gz /home/rodrigo/github/decont/out/merged/${sid1}.merged.tar.gz > log/cutadapt/${sid1}.log
 cutadapt -m 18 -a TGGAATTCTCGGGTGCCAAGG --discard-untrimmed -o out/trimmed/${sid2}.trimmed.fastq.gz /home/rodrigo/github/decont/out/merged/${sid2}.merged.tar.gz > log/cutadapt/${sid2}.log
 
-#TODO: run STAR for all trimmed files
+#run STAR for all trimmed files
 for fname in out/trimmed/*.fastq.gz
 do
     # you will need to obtain the sample ID from the filename
@@ -48,7 +49,7 @@ done
 
 # TODO: create a log file containing information from cutadapt and star logs
 cd $WD
-cat /home/rodrigo/github/decont/log/cutadapt/* /home/rodrigo/github/decont/out/star/C57BL_6NJ/*Log* /home/rodrigo/github/decont/out/star/SPRET_EiJ/*Log* > log.out
+cat ~/github/decont/log/cutadapt/* ~/github/decont/out/star/C57BL_6NJ/*Log* ~/github/decont/out/star/SPRET_EiJ/*Log* > log.out
 # (this should be a single log file, and information should be *appended* to it on each run)
 # - cutadapt: Reads with adapters and total basepairs
 # - star: Percentages of uniquely mapped reads, reads mapped to multiple loci, and to too many loci
