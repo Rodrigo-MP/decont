@@ -21,15 +21,19 @@ mkdir res/contaminants_idx
 bash scripts/index.sh res/contaminants.fasta res/contaminants_idx/
 
 # Merge the samples into a single file
-IDS="~/github/decont/data"
-for sid1 in C57BL_6NJ
+for sid in $(ls data/*.fastq.gz | cut -d"-" -f1 | sed "s:data/::" | sort | uniq)
 do
-    bash scripts/merge_fastqs.sh data out/merged $sid1
+    bash scripts/merge_fastqs.sh data out/merged $sid
 done
-for sid2 in SPRET_EiJ
-do
-    bash scripts/merge_fastqs.sh data out/merged $sid2
-done
+
+#for sid1 in C57BL_6NJ
+#do
+#    bash scripts/merge_fastqs.sh data out/merged $sid1
+#done
+#for sid2 in SPRET_EiJ
+#do
+#    bash scripts/merge_fastqs.sh data out/merged $sid2
+#done
 
 # run cutadapt for all merged files
 echo "Running cutadapt..."
